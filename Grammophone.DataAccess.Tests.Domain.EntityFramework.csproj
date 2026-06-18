@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <ProjectGuid>{B21491CC-C1E3-41C3-98D4-0C7324E31022}</ProjectGuid>
+    <TargetFramework>net472</TargetFramework>
+    <AssemblyTitle>Grammophone.DataAccess.Tests.Domain.EntityFramework</AssemblyTitle>
+    <Product>Grammophone.DataAccess.Tests.Domain.EntityFramework</Product>
+    <Copyright>Copyright ©  2016</Copyright>
+    <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\Grammophone.DataAccess.Tests.Domain.EntityFramework.XML</DocumentationFile>
+    <LangVersion>8.0</LangVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="EntityFramework" Version="6.4.4" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Grammophone.DataAccess\Grammophone.DataAccess.csproj" />
+    <ProjectReference Include="..\Grammophone.DataAccess.EntityFramework\Grammophone.DataAccess.EntityFramework.csproj" />
+    <ProjectReference Include="..\Grammophone.DataAccess.Tests.Domain\Grammophone.DataAccess.Tests.Domain.csproj" />
+  </ItemGroup>
+</Project>
