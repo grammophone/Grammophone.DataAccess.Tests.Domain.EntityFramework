@@ -5,7 +5,7 @@ namespace Grammophone.DataAccess.Tests.Domain.EntityFramework
 	/// <summary>
 	/// Entity Framework 6 test domain container adapter.
 	/// </summary>
-	public class EFTestDomainContainerAdapter : EFDomainContainerAdapter<EFTestDomainContainer>, IMusicDomainContainer
+	public class EFMusicDomainContainerAdapter : EFDomainContainerAdapter<EFMusicDomainContainer>, IMusicDomainContainer
 	{
 		#region Private fields
 
@@ -22,7 +22,7 @@ namespace Grammophone.DataAccess.Tests.Domain.EntityFramework
 		/// Create.
 		/// </summary>
 		/// <param name="innerContainer">The adapted domain container.</param>
-		public EFTestDomainContainerAdapter(EFTestDomainContainer innerContainer)
+		public EFMusicDomainContainerAdapter(EFMusicDomainContainer innerContainer)
 			: base(innerContainer)
 		{
 		}

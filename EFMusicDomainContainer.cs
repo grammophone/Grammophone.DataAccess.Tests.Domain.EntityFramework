@@ -1,4 +1,6 @@
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
+using System.Data.Entity.Infrastructure.Annotations;
 using Grammophone.DataAccess.EntityFramework;
 
 namespace Grammophone.DataAccess.Tests.Domain.EntityFramework
@@ -6,14 +8,14 @@ namespace Grammophone.DataAccess.Tests.Domain.EntityFramework
 	/// <summary>
 	/// Entity Framework 6 test domain container.
 	/// </summary>
-	public class EFTestDomainContainer : EFDomainContainer
+	public class EFMusicDomainContainer : EFDomainContainer
 	{
 		#region Construction
 
 		/// <summary>
 		/// Create.
 		/// </summary>
-		public EFTestDomainContainer()
+		public EFMusicDomainContainer()
 		{
 		}
 
@@ -21,7 +23,7 @@ namespace Grammophone.DataAccess.Tests.Domain.EntityFramework
 		/// Create.
 		/// </summary>
 		/// <param name="nameOrConnectionString">The database name or connection string.</param>
-		public EFTestDomainContainer(string nameOrConnectionString)
+		public EFMusicDomainContainer(string nameOrConnectionString)
 			: base(nameOrConnectionString)
 		{
 		}
@@ -52,10 +54,16 @@ namespace Grammophone.DataAccess.Tests.Domain.EntityFramework
 			base.OnModelCreating(modelBuilder);
 
 			modelBuilder.Entity<Artist>().HasKey(a => a.ID);
-			modelBuilder.Entity<Artist>().Property(a => a.Name).IsRequired().HasMaxLength(200);
+			modelBuilder.Entity<Artist>().Property(a => a.Name).IsRequired().HasMaxLength(200)
+				.HasColumnAnnotation(
+					IndexAnnotation.AnnotationName,
+					new IndexAnnotation(new IndexAttribute("IX_Artists_Name") { IsUnique = true }));
 
 			modelBuilder.Entity<Album>().HasKey(a => a.ID);
-			modelBuilder.Entity<Album>().Property(a => a.Name).IsRequired().HasMaxLength(200);
+			modelBuilder.Entity<Album>().Property(a => a.Name).IsRequired().HasMaxLength(200)
+				.HasColumnAnnotation(
+					IndexAnnotation.AnnotationName,
+					new IndexAnnotation(new IndexAttribute("IX_Albums_Name") { IsUnique = true }));
 			modelBuilder.Entity<Album>()
 				.HasRequired(a => a.Artist)
 				.WithMany(a => a.Albums)
@@ -77,7 +85,10 @@ namespace Grammophone.DataAccess.Tests.Domain.EntityFramework
 				.HasForeignKey(t => t.GenreID);
 
 			modelBuilder.Entity<Genre>().HasKey(g => g.ID);
-			modelBuilder.Entity<Genre>().Property(g => g.Name).IsRequired().HasMaxLength(200);
+			modelBuilder.Entity<Genre>().Property(g => g.Name).IsRequired().HasMaxLength(200)
+				.HasColumnAnnotation(
+					IndexAnnotation.AnnotationName,
+					new IndexAnnotation(new IndexAttribute("IX_Genres_Name") { IsUnique = true }));
 		}
 
 		#endregion
