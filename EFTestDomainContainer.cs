@@ -30,17 +30,17 @@ namespace Grammophone.DataAccess.Tests.Domain.EntityFramework
 
 		#region Public properties
 
-		/// <summary>Parents.</summary>
-		public DbSet<Parent> Parents { get; set; }
+		/// <summary>Artists.</summary>
+		public DbSet<Artist> Artists { get; set; }
 
-		/// <summary>Children.</summary>
-		public DbSet<Child> Children { get; set; }
+		/// <summary>Albums.</summary>
+		public DbSet<Album> Albums { get; set; }
 
-		/// <summary>Dependents.</summary>
-		public DbSet<Dependent> Dependents { get; set; }
+		/// <summary>Tracks.</summary>
+		public DbSet<Track> Tracks { get; set; }
 
-		/// <summary>Event records.</summary>
-		public DbSet<EventRecord> Events { get; set; }
+		/// <summary>Genres.</summary>
+		public DbSet<Genre> Genres { get; set; }
 
 		#endregion
 
@@ -51,21 +51,33 @@ namespace Grammophone.DataAccess.Tests.Domain.EntityFramework
 		{
 			base.OnModelCreating(modelBuilder);
 
-			modelBuilder.Entity<Parent>().HasKey(p => p.ID);
-			modelBuilder.Entity<Parent>().Property(p => p.Name).IsRequired().HasMaxLength(200);
+			modelBuilder.Entity<Artist>().HasKey(a => a.ID);
+			modelBuilder.Entity<Artist>().Property(a => a.Name).IsRequired().HasMaxLength(200);
 
-			modelBuilder.Entity<Child>().HasKey(c => c.ID);
-			modelBuilder.Entity<Child>().Property(c => c.Name).IsRequired().HasMaxLength(200);
-			modelBuilder.Entity<Child>()
-				.HasRequired(c => c.Parent)
-				.WithMany(p => p.Children)
-				.HasForeignKey(c => c.ParentID);
+			modelBuilder.Entity<Album>().HasKey(a => a.ID);
+			modelBuilder.Entity<Album>().Property(a => a.Name).IsRequired().HasMaxLength(200);
+			modelBuilder.Entity<Album>()
+				.HasRequired(a => a.Artist)
+				.WithMany(a => a.Albums)
+				.HasForeignKey(a => a.ArtistID);
+			modelBuilder.Entity<Album>()
+				.HasRequired(a => a.Genre)
+				.WithMany(g => g.Albums)
+				.HasForeignKey(a => a.GenreID);
 
-			modelBuilder.Entity<Dependent>().HasKey(d => d.ID);
-			modelBuilder.Entity<Dependent>().Property(d => d.Name).IsRequired().HasMaxLength(200);
+			modelBuilder.Entity<Track>().HasKey(t => t.ID);
+			modelBuilder.Entity<Track>().Property(t => t.Name).IsRequired().HasMaxLength(200);
+			modelBuilder.Entity<Track>()
+				.HasRequired(t => t.Album)
+				.WithMany(a => a.Tracks)
+				.HasForeignKey(t => t.AlbumID);
+			modelBuilder.Entity<Track>()
+				.HasRequired(t => t.Genre)
+				.WithMany(g => g.Tracks)
+				.HasForeignKey(t => t.GenreID);
 
-			modelBuilder.Entity<EventRecord>().HasKey(e => e.ID);
-			modelBuilder.Entity<EventRecord>().Property(e => e.Name).IsRequired().HasMaxLength(200);
+			modelBuilder.Entity<Genre>().HasKey(g => g.ID);
+			modelBuilder.Entity<Genre>().Property(g => g.Name).IsRequired().HasMaxLength(200);
 		}
 
 		#endregion

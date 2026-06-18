@@ -5,14 +5,14 @@ namespace Grammophone.DataAccess.Tests.Domain.EntityFramework
 	/// <summary>
 	/// Entity Framework 6 test domain container adapter.
 	/// </summary>
-	public class EFTestDomainContainerAdapter : EFDomainContainerAdapter<EFTestDomainContainer>, ITestDomainContainer
+	public class EFTestDomainContainerAdapter : EFDomainContainerAdapter<EFTestDomainContainer>, IMusicDomainContainer
 	{
 		#region Private fields
 
-		private IEntitySet<Parent> parents;
-		private IEntitySet<Child> children;
-		private IEntitySet<Dependent> dependents;
-		private IEntitySet<EventRecord> events;
+		private IEntitySet<Artist> artists;
+		private IEntitySet<Album> albums;
+		private IEntitySet<Track> tracks;
+		private IEntitySet<Genre> genres;
 
 		#endregion
 
@@ -29,19 +29,19 @@ namespace Grammophone.DataAccess.Tests.Domain.EntityFramework
 
 		#endregion
 
-		#region ITestDomainContainer implementation
+		#region IMusicDomainContainer implementation
 
 		/// <inheritdoc/>
-		public IEntitySet<Parent> Parents => parents ??= new EFSet<Parent>(this.InnerDomainContainer.Parents, this);
+		public IEntitySet<Artist> Artists => artists ??= new EFSet<Artist>(this.InnerDomainContainer.Artists, this);
 
 		/// <inheritdoc/>
-		public IEntitySet<Child> Children => children ??= new EFSet<Child>(this.InnerDomainContainer.Children, this);
+		public IEntitySet<Album> Albums => albums ??= new EFSet<Album>(this.InnerDomainContainer.Albums, this);
 
 		/// <inheritdoc/>
-		public IEntitySet<Dependent> Dependents => dependents ??= new EFSet<Dependent>(this.InnerDomainContainer.Dependents, this);
+		public IEntitySet<Track> Tracks => tracks ??= new EFSet<Track>(this.InnerDomainContainer.Tracks, this);
 
 		/// <inheritdoc/>
-		public IEntitySet<EventRecord> Events => events ??= new EFSet<EventRecord>(this.InnerDomainContainer.Events, this);
+		public IEntitySet<Genre> Genres => genres ??= new EFSet<Genre>(this.InnerDomainContainer.Genres, this);
 
 		#endregion
 	}
