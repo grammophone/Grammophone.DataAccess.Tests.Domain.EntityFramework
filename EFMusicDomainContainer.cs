@@ -79,7 +79,8 @@ namespace Grammophone.DataAccess.Tests.Domain.EntityFramework
 			modelBuilder.Entity<Track>()
 				.HasRequired(t => t.Album)
 				.WithMany(a => a.Tracks)
-				.HasForeignKey(t => t.AlbumID);
+				.HasForeignKey(t => t.AlbumID)
+				.WillCascadeOnDelete(false);
 			modelBuilder.Entity<Track>()
 				.HasRequired(t => t.Genre)
 				.WithMany(g => g.Tracks)
