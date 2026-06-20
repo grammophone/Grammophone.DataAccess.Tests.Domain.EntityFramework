@@ -1,14 +1,14 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure.Annotations;
-using Grammophone.DataAccess.EntityFramework;
+using Grammophone.DataAccess.EntityFramework.Plus;
 
 namespace Grammophone.DataAccess.Tests.Domain.EntityFramework
 {
 	/// <summary>
 	/// Entity Framework 6 test domain container.
 	/// </summary>
-	public class EFMusicDomainContainer : EFDomainContainer
+	public class EFMusicDomainContainer : EFDomainContainerPlus
 	{
 		#region Construction
 
